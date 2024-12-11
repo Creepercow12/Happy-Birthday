@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff9999;
+            padding: 20px;
+            color: white;
+            font-size: 2em;
+        }
+        .slider {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: white;
+            border: 2px solid #ffcccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .navigation button {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.5em;
+            transition: background 0.3s;
+        }
+        .navigation button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Happy Birthday, My Love!
+        <p>I wanted to make this for you, each month has a photo from a very memorable day</p>
+    </header>
+    <div class="slider">
+        <div class="slides" id="slides">
+            <div class="slide">
+                January
+            </div>
+            <div class="slide">
+                February
+            </div>
+            <div class="slide">
+                March
+            </div>
+            <div class="slide">
+                April
+            </div>
+            <div class="slide">
+                May
+            </div>
+            <div class="slide">
+                June
+            </div>
+            <div class="slide">
+                July
+            </div>
+            <div class="slide">
+                August
+            </div>
+            <div class="slide">
+                September
+            </div>
+            <div class="slide">
+                October
+            </div>
+            <div class="slide">
+                November
+            </div>
+            <div class="slide">
+                December
+            </div>
+        </div>
+        <div class="navigation">
+            <button onclick="moveSlide(-1)">&#10094;</button>
+            <button onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+    <div class="container" id="image-container">
+        <img src="images/default.jpg" alt="Image of the month">
+        <audio controls autoplay id="audio-player">
+            <source src="Daniel Caesar - Sweet (Unreleased) [ ezmp3.cc ].mp3">
+        </audio>
+        <p id="month-text">Click the play button to hear an unreleased Daniel song!</p>
+    </div>
+    <script>
+        let currentSlide = 0;
+        const imageContainer = document.getElementById('image-container');
+        const monthText = document.getElementById('month-text');
+
+        const monthImages = [
+            "images/101_0131.jpg",
+            "images/IMG_8216.jpg",
+            "images/IMG_8238.jpg",
+            "images/IMG_8562.jpg",
+            "images/IMG_0876.jpg",
+            "images/IMG_8932.jpg",
+            "images/IMG_9379.jpg",
+            "images/IMG_9525.jpg",
+            "images/IMG_0013.jpg",
+            "images/IMG_0295.jpg",
+            "images/IMG_7808.jpg",
+            "images/kittens.jpg"
+        ];
+
+        const monthTexts = [
+            "Of course I had to use the new years picture, what better way to spend the beginning of the month than with you as we watched the clock count down from 10. We rushed to eat all our magical wish granting grapes. The clock strikes 12, the new year has begun. We celebrate the new year amongst friends and then with each other as we embrace for our (and my) first new year's kiss.",
+            "We finally got to try out PastaRamen! After seeing their reservations were full for months, I knew when I saw an open spot that we had to go. It all happened so suddenly, but we may have never got this chance anytime soon. We got to eat with Michelle and my cousin Thalia who you meet for the first time. Im gonna be honest, I was expecting a great sea of explosive flavors in my mouth according to the hype and price, maybe thats me being salty about the portion sizes or that I enjoyed your plate over my own. Regardless, it didn't matter to me, I was happy that we finally got to try this glorified spot together and shared the experience with my cousins.  ",
+            "This month seems like we mostly stayed inside, or probably from my lack of taking picture. But im a put this picture of you holding Duster with his bow. Thank you for gifting him to me, he is a very nice red dinosaur. Apart from this picture I also remember us going to sandwhicitos some other week, even though you didn't get anything because you are rarely hungry (unlike me). Just spending time in the car as I ate my over price sandwhich, playing around with snapchat filters, and listening to music together are the small moments I cherish. ",
+            "LAUFEY DAY! While I wasn't that invested into her music at the time, I knew that you were listening to her new album and knew a multitude of her previous songs. I remember listening to her new and previous albums, even finding a track list for her concert. I didn't want to go in blind and leave you singing outloud by yourself. I may have became a bit obsesed with laufey during that time approaching the concert. Fastforward, we make the trip to new york and we stop by to get some pizza because I am always so hungry. We rushed to radio city music hall and arrived at our seats. We waited eagerly for Laufey to come out and serenade us. When she finally came out, I was excited to sing along with you and show you the results of my little Laufey binge. My favorite song from the concert was Bewitched, its powerful lyrics brought me to tears as I pictured us in the immersive environment she created in my head through every single one of her words. I couldn't imagine going to this concert with anyone else, thank you for putting me on indirectly and for being the reason I could feel the way I did not just through Bewitched, but through out the whole concert. (I know this was early may but I wanted to put something else for may)",
+            "This was a fun day, almost everyone got together and we mad a great beach day. From the girls vs boys sand castle building (which we won by the way), the little silly brown baby, swiming and jumping over the waves, fishtaco, playing mini golf, and then getting ice cream. That day felt like THE beach day, Im not sure if we could get a beach day to top this one, but one thing I do know is that it won't even come close if you are not there with me.",
+            "Our first trip together by ourselves and your first time ever on a plane! I wasn't sure how severe your fear would be to flying, but I'm glad I could be right next to you to show you that there is nothing to fear. We spent quite a bag on this trip, but you can't put a price on meomories. We got to go on quite literally every ride in the park, a day full of rides with you sitting right by my side means alot to me. I hope you enjoyed going to universal for the first time with me as much as I enjoyed getting to experience the rides with you and show you around. On the following day, we spent it doing little activites like top golf, arcade, go karting, and ending the day with the super funny hibachi chef. I want to have more trips like that with you, where we explore new things together, espically the food part (yummy) and the dessert part for you (double yummy).",
+            "I was preparing myself to spend my birthday alone in Virginia because of the ship trip that I had to go on. I was pretty upset about this, but luckily through some unknown force, the news hit me that we were allowed to leave early, I booked the next flight I could take and made sure I would be able to come home for my birthday. I am so grateful that I was able to gonna go out to eat with you and my family. I remember picking you up and listening to spanish salsa music on the way to the resturant. Even though my glasses broke which was a real shame, it didn't matter because you were right next to me as I blew out the candles. I was so happy that you were there with me, when I thought I would spend my birthday alone in my hotel room.",
+            "I wasn't sure which picture to pick from our trip to cape may, it was either between this and the one of us at the beach. This whole trip was something we were looking forward to, it was nice to get away from work and spend the weekend alone and with Bryan and Nicole, even though it was sooooo humid and hot in that airbnb. My favorite moment from the trip was when we got to spend time alone at the beach with the little boogie board, floating away from everyone and staying close to each other so we dont drift away at sea and get pinched by the mean crabs. It felt like it was just you and I in the water, enjoying the soothing waves of the water and the warmth of each other's bodies. What was your favorite moment?",
+            "The start of the semester, I don't like the transition from summer to school, it divides our time by half and leaves no room for some great trips that we could take. From this month on I feel like I haven't taken alot of photos of us and thats something I regret looking back at my camera roll. Here I caught you in the middle of your strawberry bite. I also find it funny how you are surrounded by three plates full of food that I know you won't finish ever in a million years. Even I didn't help you finish because of the extreme tummy ache that I got from eating my food. I swear they were trying to poison me, 0 out of 10 would not recommend. I love taking these .5 pictures of you, especially when the food has arrived. May we never stop trying new food spots and hopefully stay away from the ones that try to kill us.",
+            "I really wish I had a photo of us when we went to hoboken this month, all I have is a picture of the parking zone. The food we got at the poke bowl place was the abosulte best, so scrumptious with incredible sauces, like the peanut butter one I was steal from you. We finished eating and we spent the rest of our time walking around the town, going to the pier park where played in the ropes and went down the slide (where I heroically helped the little girl get up to the slide). We went to get you a cookie and I had a bite where I felt like I was gonna die from the chest pain. To this day idk why that little piece triggered me. We spent time in the little park by stevens where we saw an overload of tiny babies running around the playground, so adorable. I hoped you liked watching the world around us as we walked together through town as much as I did.",
+            "Treescape Adventure, I really loved this whole day. I know I usually dont want to drive us far and restrict us from trying some cool stuff like this, but the drive was so worth the experience. We completed almost all of the courses they had and we did the super hard black route. I'm really proud of us for doing that, it was scary at times but we pushed each other to go through with it until the end. My favorite part was watching you come to me on the zipline as I stood on the other side waiting for you to make it safe. Also can't forget the funny videos that we got like the one where we both jumped off the platform with the belay. I was a bit disappointed that grandma wasn't there to greet our hungry bellys, but the place we went to right after was so mouth watering. I dont even know if grandmas secret recipe can compete. I want to do more long day trips like that with you, pick a place even if its far and I'll take us there, espically after doing that virigina drive, I feel like an hour plus drive is nothing to me anymore, it opens up so many possibilites. ",
+            "I don't have a photo of us for this month, so instead I put a picture of us as kittens. The song I put is an unreleased Daniel song that I was listening to on monday on my way to work and it broke me after feeling nothing with any of the other songs that played. I had to stop on the side of the road to cry so I wouldn't put myself in danger. I can't stop thinking about you, everything reminds me of you and I want to talk to you. Most importantly I want to see you and tell you happy birthday in person, but I feel so horrible that I let it come to this point. I made you this to share with you how I feel about you over the past year, even if its the last thing you want to see right now, I feel the need to give this to you and tell you I love you."
+        ];
+
+        imageContainer.querySelector('img').src = monthImages[currentSlide];
+        monthText.textContent = monthTexts[currentSlide];
+
+        function moveSlide(direction) {
+            const slides = document.getElementById('slides');
+            const totalSlides = slides.children.length;
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            imageContainer.querySelector('img').src = monthImages[currentSlide];
+            monthText.textContent = monthTexts[currentSlide];
+        }
+
+        const audioPlayer = document.getElementById('audio-player');
+        audioPlayer.volume = 0.3;
+        
+    </script>
+</body>
+</html>
